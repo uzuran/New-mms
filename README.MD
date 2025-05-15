@@ -25,13 +25,6 @@
     
         # Fill database dummy data.
             php bin/console doctrine:fixtures:load
- 
-
-# Add api to project.
-    composer require api
-
-[http://localhost:8080/api](http://localhost:8080/api)
-
 
 # Migrations
     php bin/console make:migration
@@ -51,3 +44,9 @@ Username: symfony
 Password: symfony
 
 Database: symfony
+
+# Add api to project.
+    composer require api
+
+[http://localhost:8080/api](http://localhost:8080/api)
+
