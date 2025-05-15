@@ -1,6 +1,12 @@
 # Docker
     Install docker on your local machine.
 
+# Install make from Chocolatey windows. 
+    choco install make
+    
+# Install make for linux.
+    sudo apt install make
+
 # Build docker container, Make require, check Makefile! --> run this command ->.
     make build
 
