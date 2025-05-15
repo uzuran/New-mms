@@ -17,9 +17,9 @@
 # Doctrine orm-pack.
     composer require symfony/orm-pack
 
-# Doctrine doctrine-bundle.
+# Doctrine bundle.
     composer require doctrine/doctrine-bundle
-# Doctrine doctrine-annotations.    
+# Doctrine annotations.    
     composer require doctrine/annotations
 # Bundle --dev.    
     composer require symfony/maker-bundle --dev
