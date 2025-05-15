@@ -38,7 +38,7 @@
     php bin/console doctrine:migrations:migrate
 
 # Adminer for manage database
-u[http://localhost:8080/adminer.php](http://localhost:8080/adminer.php)
+[http://localhost:8080/adminer.php](http://localhost:8080/adminer.php)
 
 ![db-login](image.png)
 
