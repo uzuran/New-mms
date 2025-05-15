@@ -13,13 +13,13 @@ class AppFixtures extends Fixture
     {
         // Create Category
         $category = new Category();
-        $category->setMaterialId('4.1001');
+        $category->setMaterialId('3.3535');
         $category->setName('Aluminum');  // Use setPpsId instead of setMaterialId
         $manager->persist($category);
 
         // Create Material
         $material = new Material();
-        $material->setPpsId('3.3003');
+        $material->setPpsId('3.3535');
         $material->setMaterialThickness(2.0);
         $material->setXSize(3000.0);
         $material->setYSize(1500.0);

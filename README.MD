@@ -6,7 +6,7 @@ Install docker on your local machine.
 
 Check Makefile --> run this command: make build
 
-# Run this commands inside docker container.
+# Run  all this commands inside docker container!!!
     # Create base symfony skeleton.
     composer create-project symfony/skeleton .
     

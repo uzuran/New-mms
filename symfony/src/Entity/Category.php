@@ -34,9 +34,9 @@ class Category
         return $this->materialId;
     }
 
-    public function setMaterialId(string $ppsId): self
+    public function setMaterialId(string $materialId): self
     {
-        $this->materialId = $ppsId;
+        $this->materialId = $materialId;
         return $this;
     }
 
