@@ -1,10 +1,8 @@
 # Docker
-
-Install docker on your local machine.
+    Install docker on your local machine.
 
 # Build docker container, Make require.
-
-Check Makefile! --> run this command -> make build
+    Check Makefile! --> run this command -> make build
 
 # Run  all this commands inside docker container!!!
     
