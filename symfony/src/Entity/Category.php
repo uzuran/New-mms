@@ -1,12 +1,13 @@
 <?php
 // src/Entity/Category.php
 
-// src/Entity/Category.php
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 
+
+#[ApiResource]
 #[ORM\Entity]
 class Category
 {

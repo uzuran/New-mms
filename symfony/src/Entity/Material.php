@@ -7,7 +7,9 @@ use App\Entity\Category;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
+use ApiPlatform\Metadata\ApiResource;
 
+#[ApiResource]
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 class Material

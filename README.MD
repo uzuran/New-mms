@@ -22,9 +22,13 @@ Check Makefile --> run this command: make build
     # Dummy Data with Fixtures
     composer require --dev doctrine/doctrine-fixtures-bundle
     
-    # Fill database dummy data.
-    php bin/console doctrine:fixtures:load
+        # Fill database dummy data.
+        php bin/console doctrine:fixtures:load
  
+
+# Add api to project.
+composer require api
+
 
 
 # Migrations
