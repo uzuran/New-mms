@@ -19,7 +19,7 @@ class AppFixtures extends Fixture
 
         // Create Material
         $material = new Material();
-        $material->setMaterialId('3.3003');
+        $material->setPpsId('3.3003');
         $material->setMaterialThickness(2.0);
         $material->setXSize(3000.0);
         $material->setYSize(1500.0);

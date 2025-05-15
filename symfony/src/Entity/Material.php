@@ -24,7 +24,7 @@ class Material
     private ?Category $category = null;
 
     #[ORM\Column(type: "string", length: 100)]
-    private string $materialId;
+    private string $ppsId;
 
     #[ORM\Column(type: "float")]
     private float $materialThickness;
@@ -80,14 +80,14 @@ class Material
         return $this;
     }
 
-    public function getMaterialId(): string
+    public function getPpsId(): string
     {
-        return $this->materialId;
+        return $this->ppsId;
     }
 
-    public function setMaterialId(string $materialId): self
+    public function setPpsId(string $materialId): self
     {
-        $this->materialId = $materialId;
+        $this->ppsId = $materialId;
         return $this;
     }
 

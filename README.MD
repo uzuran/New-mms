@@ -32,10 +32,10 @@ composer require api
 
 
 # Migrations
-docker-compose exec php php bin/console make:migration
+php bin/console make:migration
 
 # Migrate 
-docker-compose exec php php bin/console doctrine:migrations:migrate
+php bin/console doctrine:migrations:migrate
 
 # Adminer for manage database
 [http://localhost:8080/adminer.php](http://localhost:8080/adminer.php)
