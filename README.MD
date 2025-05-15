@@ -1,24 +1,28 @@
 # Docker
     Install docker on your local machine.
 
-# Build docker container, Make require.
-    Check Makefile! --> run this command -> make build
+# Build docker container, Make require, check Makefile! --> run this command ->.
+    make build
 
 [http://localhost:8080](http://localhost:8080)
 
 # Run  all this commands inside docker container!!!
     
-    # Create base symfony skeleton.
-        composer create-project symfony/skeleton .
+# Create base symfony skeleton.
+    composer create-project symfony/skeleton .
     
-    #twig template.
-        composer require twig
+#twig template.
+    composer require twig
     
-    # Doctrine.
-        composer require symfony/orm-pack
-        composer require doctrine/doctrine-bundle
-        composer require doctrine/annotations
-        composer require symfony/maker-bundle --dev
+# Doctrine orm-pack.
+    composer require symfony/orm-pack
+
+# Doctrine doctrine-bundle.
+    composer require doctrine/doctrine-bundle
+# Doctrine doctrine-annotations.    
+    composer require doctrine/annotations
+# Bundle --dev.    
+    composer require symfony/maker-bundle --dev
 
 
 # Migrations
