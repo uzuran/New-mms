@@ -3,11 +3,11 @@
 
 # Install make from Chocolatey windows. 
     choco install make
-    
+
 # Install make for linux.
     sudo apt install make
 
-# Build docker container, Make require, check Makefile! --> run this command ->.
+# Build docker container.
     make build
 
 [http://localhost:8080](http://localhost:8080)
