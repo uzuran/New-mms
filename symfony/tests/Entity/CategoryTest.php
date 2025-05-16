@@ -6,16 +6,38 @@ use App\Entity\Category;
 use PHPUnit\Framework\TestCase;
 
 class CategoryTest extends TestCase
-{
-    public function testMaterialInStorageAfterWriteOff()
-    {   # Create a new Material object
-        $category = new Category();
+{   
+    private Category $category;
+
+    protected function setUp(): void
+    {
+        $this->category = new Category();
+    }
+
+    
+    public function testMaterialId()
+    {   
+        # Material ID
+        $materialId = "1.4301";
+       
         # Set initial values
-        $category->setMaterialId("1.4301");
-        $category->setName("Nerezová ocel");
-        
+        $this->category->setMaterialId($materialId);
         # Call the method to be tested
-        $this->assertEquals("1.4301", $category->getMaterialId());
-        $this->assertEquals("Nerezová ocel", $category->getName());
+        $this->assertEquals($materialId, $this->category->getMaterialId());
+        
+    }
+
+        public function testName()
+    {
+        $name = 'Stainless Steel';
+
+        $this->category->setName($name);
+        $this->assertSame($name, $this->category->getName());
+    }
+
+    
+    public function testInitialIdIsNull()
+    {
+        $this->assertNull($this->category->getId());
     }
 }
