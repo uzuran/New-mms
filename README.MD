@@ -31,13 +31,13 @@
     composer require symfony/maker-bundle --dev
 
 
-# Migrations
+# Migrations.
     php bin/console make:migration
 
-# Migrate 
+# Migrate.
     php bin/console doctrine:migrations:migrate
 
-# Adminer for manage database
+# Adminer for manage database.
 [http://localhost:8080/adminer.php](http://localhost:8080/adminer.php)
 
 ![db-login](image.png)
