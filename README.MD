@@ -61,3 +61,9 @@ Database: symfony
 
 [http://localhost:8080/api](http://localhost:8080/api)
 
+# Add tool for testing.
+    composer require --dev symfony/test-pack
+
+# Run Tests.
+    php bin/phpunit
+

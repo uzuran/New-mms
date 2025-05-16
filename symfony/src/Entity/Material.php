@@ -8,10 +8,18 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
 #[ApiResource]
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
+
+#[ApiFilter(SearchFilter::class, properties: [
+    'materialId' => 'partial',
+    'category.name' => 'exact'
+])]
+
 class Material
 {   
     #[ORM\Id]
