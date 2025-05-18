@@ -10,8 +10,12 @@ use Doctrine\DBAL\Types\Types;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource]
+#[ApiResource (
+    normalizationContext: ['groups' => ['material:read']],
+    denormalizationContext: ['groups' => ['material:write']]
+)]
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 
@@ -25,32 +29,41 @@ class Material
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
-    private ?int $id = null;
-
-    #[ORM\ManyToOne(targetEntity: Category::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
-
+    #[Groups(['material:read', 'category:read'])]
+    private int $id;
+    
+    #[Groups(['material:read', 'material:write', 'category:write'])]
     #[ORM\Column(type: "string", length: 100)]
     private string $ppsId;
 
+    #[Groups(['material:read', 'material:write', 'category:write'])]
     #[ORM\Column(type: "float")]
     private float $materialThickness;
 
+    #[Groups(['material:read', 'material:write', 'category:write'])]
     #[ORM\Column(type: "float")]
     private float $xSize;
 
+    #[Groups(['material:read', 'material:write', 'category:write'])]
     #[ORM\Column(type: "float")]
     private float $ySize;
 
+    #[Groups(['material:read', 'material:write', 'category:write'])]
     #[ORM\Column(type: "float")]
     private float $orderedMaterial = 0;
 
+    #[Groups(['material:read', 'material:write', 'category:write'])]
     #[ORM\Column(type: "float")]
     private float $materialInStorage = 0;
 
+    #[Groups(['material:read', 'material:write', 'category:write'])]
     #[ORM\Column(type: "float")]
     private float $writeOffMaterial = 0;
+
+    #[Groups(['material:read', 'material:write'])]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'materials')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private DateTimeInterface $createdAt;
@@ -82,7 +95,7 @@ class Material
         return $this->category;
     }
 
-    public function setCategory(Category $category): self
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
         return $this;
@@ -93,9 +106,9 @@ class Material
         return $this->ppsId;
     }
 
-    public function setPpsId(string $materialId): self
+    public function setPpsId(string $ppsId): self
     {
-        $this->ppsId = $materialId;
+        $this->ppsId = $ppsId;
         return $this;
     }
 
