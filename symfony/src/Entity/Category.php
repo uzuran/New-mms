@@ -12,13 +12,29 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\Material;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 
-#[ApiResource (
+
+#[ORM\Entity]
+#[ORM\Table(name: "category")]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Patch(),
+        new Delete(),
+        new Put()
+    ],
     normalizationContext: ['groups' => ['category:read']],
     denormalizationContext: ['groups' => ['category:write']]
 )]
 
-#[ORM\Entity]
 class Category
 {    
     #[ORM\Id]
@@ -29,7 +45,7 @@ class Category
 
     #[ORM\Column(type: "string", length: 50, unique: false)]
     #[Groups(['category:read', 'category:write'])]
-    private $materialId;
+    private string $materialId;
 
     #[ORM\Column(type: "string", length: 100)]
     #[Groups(['category:read', 'category:write'])]

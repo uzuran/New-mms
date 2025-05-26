@@ -37,6 +37,13 @@
 # Migrate.
     php bin/console doctrine:migrations:migrate
 
+# Force update for changes.
+    php bin/console doctrine:schema:update --force
+
+# For validate entities.
+    composer require symfony/validator
+
+
 # Adminer for manage database.
 [http://localhost:8080/adminer.php](http://localhost:8080/adminer.php)
 

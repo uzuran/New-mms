@@ -2,67 +2,74 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Category;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\ApiFilter;
+use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\{
+    ApiResource, Get, GetCollection, Post, Put, Patch, Delete, ApiFilter
+};
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource (
-    normalizationContext: ['groups' => ['material:read']],
-    denormalizationContext: ['groups' => ['material:write']]
-)]
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
-
+#[ApiResource(
+    normalizationContext: ['groups' => ['material:read']],
+    denormalizationContext: ['groups' => ['material:write']],
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Put(),
+        new Patch(),
+        new Delete(),
+    ]
+)]
 #[ApiFilter(SearchFilter::class, properties: [
     'materialId' => 'partial',
-    'category.name' => 'exact'
+    'category.name' => 'exact',
 ])]
-
 class Material
-{   
+{
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: "integer")]
+    #[ORM\Column(type: 'integer')]
     #[Groups(['material:read', 'category:read'])]
-    private int $id;
-    
-    #[Groups(['material:read', 'material:write', 'category:write'])]
-    #[ORM\Column(type: "string", length: 100)]
-    private string $ppsId;
+    private ?int $id = null;
 
+    #[ORM\Column(type: 'string', length: 100)]
     #[Groups(['material:read', 'material:write', 'category:write'])]
-    #[ORM\Column(type: "float")]
-    private float $materialThickness;
+    private string $ppsId = '';
 
+    #[ORM\Column(type: 'float')]
     #[Groups(['material:read', 'material:write', 'category:write'])]
-    #[ORM\Column(type: "float")]
-    private float $xSize;
+    private float $materialThickness = 0;
 
+    #[ORM\Column(type: 'float')]
     #[Groups(['material:read', 'material:write', 'category:write'])]
-    #[ORM\Column(type: "float")]
-    private float $ySize;
+    private float $xSize = 0;
 
+    #[ORM\Column(type: 'float')]
     #[Groups(['material:read', 'material:write', 'category:write'])]
-    #[ORM\Column(type: "float")]
+    private float $ySize = 0;
+
+    #[ORM\Column(type: 'float')]
+    #[Groups(['material:read', 'material:write', 'category:write'])]
     private float $orderedMaterial = 0;
 
+    #[ORM\Column(type: 'float')]
     #[Groups(['material:read', 'material:write', 'category:write'])]
-    #[ORM\Column(type: "float")]
     private float $materialInStorage = 0;
 
+    #[ORM\Column(type: 'float')]
     #[Groups(['material:read', 'material:write', 'category:write'])]
-    #[ORM\Column(type: "float")]
     private float $writeOffMaterial = 0;
 
-    #[Groups(['material:read', 'material:write'])]
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'materials')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['material:read', 'material:write'])]
     private ?Category $category = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
@@ -71,34 +78,22 @@ class Material
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTimeInterface $updatedAt = null;
 
-    // Getters and Setters
-
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
     }
-    
+
     #[ORM\PreUpdate]
     public function onPreUpdate(): void
     {
         $this->updatedAt = new \DateTime();
     }
 
+    // Getters and Setters
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
-        return $this;
     }
 
     public function getPpsId(): string
@@ -178,7 +173,18 @@ class Material
         return $this;
     }
 
-        public function getCreatedAt(): DateTimeInterface
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -193,5 +199,4 @@ class Material
         $this->updatedAt = $updatedAt;
         return $this;
     }
-
 }
