@@ -18,6 +18,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity]
@@ -47,6 +48,11 @@ class Category
     #[Groups(['category:read', 'category:write'])]
     private string $materialId;
 
+    #[Assert\NotBlank(message: "Category name cannot be empty.")]
+    #[Assert\Length(
+        max: 100,
+        maxMessage: "Category name cannot be longer than {{ limit }} characters."
+    )]
     #[ORM\Column(type: "string", length: 100)]
     #[Groups(['category:read', 'category:write'])]
     private ?string $name = null;
