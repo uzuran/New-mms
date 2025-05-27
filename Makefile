@@ -27,6 +27,13 @@ install:
 logs:
 	docker-compose logs -f
 
+migrationfile:
+	docker-compose exec php bin/console doctrine:migrations:diff
+
+apply:
+	docker-compose exec php bin/console doctrine:migrations:migrate
+
+
 migrate:
 	docker-compose exec php bin/console doctrine:migrations:migrate
 

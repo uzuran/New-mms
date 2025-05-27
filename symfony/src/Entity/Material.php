@@ -49,7 +49,13 @@ class Material
     #[ORM\Column(type: 'string', length: 100)]
     #[Groups(['material:read', 'material:write', 'category:write'])]
     private string $ppsId = '';
-
+    
+    #[Assert\NotBlank(message: "Material thickness cannot be empty.")]
+    #[Assert\Range(
+    min: 0.1,
+    max: 25,
+    notInRangeMessage: 'Material thickness must be between {{ min }} and {{ max }}.'
+    )]
     #[ORM\Column(type: 'float')]
     #[Groups(['material:read', 'material:write', 'category:write'])]
     private float $materialThickness = 0;
