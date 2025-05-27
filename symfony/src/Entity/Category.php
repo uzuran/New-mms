@@ -44,6 +44,11 @@ class Category
     #[Groups(['category:read', 'material:read'])]
     private int $id;
 
+    #[Assert\NotBlank(message: "Category material ID cannot be empty.")]
+    #[Assert\Length(
+        max: 100,
+        maxMessage: "Category material ID cannot be longer than {{ limit }} characters."
+    )]
     #[ORM\Column(type: "string", length: 50, unique: false)]
     #[Groups(['category:read', 'category:write'])]
     private string $materialId;
