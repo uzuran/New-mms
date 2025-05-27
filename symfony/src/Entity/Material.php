@@ -59,7 +59,13 @@ class Material
     #[ORM\Column(type: 'float')]
     #[Groups(['material:read', 'material:write', 'category:write'])]
     private float $materialThickness = 0;
-
+    
+    #[Assert\NotBlank(message: "Material X-size cannot be empty.")]
+    #[Assert\Range(
+    min: 0.1,
+    max: 3000,
+    notInRangeMessage: 'Material X-size must be between {{ min }} and {{ max }}.'
+    )]
     #[ORM\Column(type: 'float')]
     #[Groups(['material:read', 'material:write', 'category:write'])]
     private float $xSize = 0;
