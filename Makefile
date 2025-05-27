@@ -38,3 +38,6 @@ containers:
 
 container:
 	docker ps 
+
+runcli:
+	docker exec -it new-mms-php-1 bash
