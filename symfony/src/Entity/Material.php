@@ -69,7 +69,13 @@ class Material
     #[ORM\Column(type: 'float')]
     #[Groups(['material:read', 'material:write', 'category:write'])]
     private float $xSize = 0;
-
+    
+    #[Assert\NotBlank(message: "Material Y-size cannot be empty.")]
+    #[Assert\Range(
+    min: 0.1,
+    max: 1500,
+    notInRangeMessage: 'Material Y-size must be between {{ min }} and {{ max }}.'
+    )]
     #[ORM\Column(type: 'float')]
     #[Groups(['material:read', 'material:write', 'category:write'])]
     private float $ySize = 0;
