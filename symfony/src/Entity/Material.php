@@ -12,6 +12,7 @@ use ApiPlatform\Metadata\{
 };
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
@@ -39,6 +40,12 @@ class Material
     #[Groups(['material:read', 'category:read'])]
     private ?int $id = null;
 
+    
+    #[Assert\NotBlank(message: "Material pps ID cannot be empty.")]
+    #[Assert\Length(
+        max: 100,
+        maxMessage: "Material pps ID cannot be longer than {{ limit }} characters."
+    )]
     #[ORM\Column(type: 'string', length: 100)]
     #[Groups(['material:read', 'material:write', 'category:write'])]
     private string $ppsId = '';
