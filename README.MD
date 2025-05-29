@@ -16,10 +16,7 @@
     
 # Create base symfony skeleton.
     composer create-project symfony/skeleton .
-    
-#twig template.
-    composer require twig
-    
+        
 # Doctrine orm-pack.
     composer require symfony/orm-pack
 
