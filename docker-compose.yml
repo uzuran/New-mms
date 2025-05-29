@@ -31,5 +31,20 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - db_data:/var/lib/mysql
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: nuxt-app
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    command: npm run dev
+    depends_on:
+      - php
+      - nginx
+
 volumes:
   db_data:
