@@ -10,7 +10,13 @@
 # Build docker container.
     make build
 
+# For symfony project.
 [http://localhost:8080](http://localhost:8080)
+
+# For Nuxt.
+[http://localhost:3000](http://localhost:3000)
+
+
 
 # Run  all this commands inside docker container!!!
     
