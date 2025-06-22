@@ -39,9 +39,8 @@ migrate:
 validate:
 	docker-compose exec php bin/console doctrine:schema:validate
 
-clear:
+clearcache:
 	docker-compose exec php bin/console cache:clear
-
 
 seed:
 	docker-compose exec php bin/console doctrine:fixtures:load
