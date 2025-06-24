@@ -15,6 +15,7 @@ const name = ref('')
 const message = ref('')
 const editingCategoryId = ref(null)
 
+// Load categories from the API
 const loadCategories = async () => {
   try {
     pending.value = true
@@ -28,6 +29,7 @@ const loadCategories = async () => {
   }
 }
 
+// Open the form for adding a new category
 const openNewForm = () => {
   materialId.value = ''
   name.value = ''
@@ -36,6 +38,7 @@ const openNewForm = () => {
   showForm.value = true
 }
 
+// Submit the form to create or update a category
 const submit = async () => {
   
   isSaving.value = true
@@ -66,6 +69,8 @@ const submit = async () => {
     await loadCategories()
   } catch (err) {
     message.value = '❌ Chyba: ' + (err.message || 'Neznámá chyba')
+  } finally {
+    isSaving.value = false
   }
 }
 
@@ -79,6 +84,7 @@ const editCategory = (category) => {
 
 const deleteCategory = async (id) => {
   if (!confirm('Opravdu chceš tuto kategorii smazat?')) return
+  isDeleting.value = true
   try {
     await $fetch(`http://localhost:8080/api/categories/${id}`, {
       method: 'DELETE',
@@ -87,8 +93,11 @@ const deleteCategory = async (id) => {
     await loadCategories()
   } catch (err) {
     message.value = '❌ Chyba při mazání: ' + (err.message || 'Neznámá chyba')
+  } finally {
+    isDeleting.value = false
   }
 }
+
 
 onMounted(() => {
   loadCategories()
@@ -97,15 +106,12 @@ onMounted(() => {
 
 <template>
   <div class="p-6 max-w-3xl mx-auto">
-    <h1 class="text-2xl font-bold mb-4">📦 Categories</h1>
+    <h1 class="text-2xl font-bold mb-4">📦 Kategorie materiálů</h1>
 
     <div class="mb-4">
-      <button
-        @click="openNewForm"
-        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded"
-      >
-        ➕ Add Category
-      </button>
+      <BaseButton variant="primary" @click="openNewForm">
+        ➕ Přidat novou kategorii
+      </BaseButton>
     </div>
 
     <div v-if="showForm" class="mb-6 bg-gray-50 border p-4 rounded shadow">
@@ -126,21 +132,19 @@ onMounted(() => {
           required
         />
         <div class="flex items-center space-x-2">
-          <button
+
+          <BaseButton
             type="submit"
-            :disabled="isSaving"
-            class="bg-green-600 text-white px-4 py-2 rounded disabled:opacity-50"
+            variant="success"
+            :loading="isSaving"
           >
-            <span v-if="isSaving">Ukládám...</span>
-            <span v-else>{{ editingCategoryId ? 'Uložit změny' : 'Uložit' }}</span>
-          </button>
-          <button
-            type="button"
-            @click="showForm = false; editingCategoryId = null; message = ''"
-            class="bg-gray-400 text-white px-4 py-2 rounded"
-          >
+            💾 {{ editingCategoryId ? 'Uložit změny' : 'Uložit' }}
+          </BaseButton>
+
+          <BaseButton variant="gray" @click="showForm = false; editingCategoryId = null; message = ''">
             ✖️ Zrušit
-          </button>
+          </BaseButton>
+
         </div>
         <p class="text-sm mt-2">{{ message }}</p>
       </form>
@@ -166,18 +170,15 @@ onMounted(() => {
             <td class="border px-4 py-2">{{ category.materialId }}</td>
             <td class="border px-4 py-2">{{ category.name }}</td>
             <td class="border px-4 py-2 space-x-2">
-              <button
-                @click="editCategory(category)"
-                class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm"
-              >
+              
+              <BaseButton variant="warning" @click="editCategory(category)">
                 ✏️ Upravit
-              </button>
-              <button
-                @click="deleteCategory(category.id)"
-                class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
-              >
+              </BaseButton>
+
+              <BaseButton variant="danger" @click="deleteCategory(category.id)" :loading="isDeleting">
                 🗑️ Smazat
-              </button>
+              </BaseButton>
+
             </td>
           </tr>
           <tr v-if="categories.length === 0">
