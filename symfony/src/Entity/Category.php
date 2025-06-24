@@ -49,7 +49,9 @@ class Category
         max: 100,
         maxMessage: "Category material ID cannot be longer than {{ limit }} characters."
     )]
-    #[ORM\Column(type: "string", length: 50, unique: false)]
+    
+    #[Assert\NotBlank]
+    #[ORM\Column(type: "string", length: 30, unique: true)]
     #[Groups(['category:read', 'category:write'])]
     private string $materialId;
 
@@ -58,7 +60,7 @@ class Category
         max: 100,
         maxMessage: "Category name cannot be longer than {{ limit }} characters."
     )]
-    #[ORM\Column(type: "string", length: 100)]
+    #[ORM\Column(type: "string", length: 30)]
     #[Groups(['category:read', 'category:write'])]
     private ?string $name = null;
 

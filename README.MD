@@ -10,16 +10,19 @@
 # Build docker container.
     make build
 
+# For symfony project.
 [http://localhost:8080](http://localhost:8080)
+
+# For Nuxt.
+[http://localhost:3000](http://localhost:3000)
+
+
 
 # Run  all this commands inside docker container!!!
     
 # Create base symfony skeleton.
     composer create-project symfony/skeleton .
-    
-#twig template.
-    composer require twig
-    
+        
 # Doctrine orm-pack.
     composer require symfony/orm-pack
 

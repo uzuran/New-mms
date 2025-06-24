@@ -30,12 +30,17 @@ logs:
 migrationfile:
 	docker-compose exec php bin/console doctrine:migrations:diff
 
-apply:
-	docker-compose exec php bin/console doctrine:migrations:migrate
-
+migrations:
+	docker-compose exec php bin/console make:migration
 
 migrate:
 	docker-compose exec php bin/console doctrine:migrations:migrate
+
+validate:
+	docker-compose exec php bin/console doctrine:schema:validate
+
+clearcache:
+	docker-compose exec php bin/console cache:clear
 
 seed:
 	docker-compose exec php bin/console doctrine:fixtures:load
@@ -48,3 +53,6 @@ container:
 
 runcli:
 	docker exec -it new-mms-php-1 bash
+
+celarcache:
+	php bin/console cache:clear
