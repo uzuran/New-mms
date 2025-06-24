@@ -1,2 +1,53 @@
-.README_files
+README_files
 
+node_modules
+### 🐘 Symfony ###
+/.env
+/.env.local
+/.env.*.local
+/.env.test
+/.env.test.local
+/var/
+/vendor/
+/public/bundles/
+/node_modules/ # pokud instaluješ JS i pro backend
+/.phpunit.result.cache
+.phpunit.result.cache
+.php_cs.cache
+/build/ # pokud používáš Webpack encore
+
+### Optional: SQLite DB ###
+/*.sqlite
+/*.sqlite3
+
+### Nuxt ###
+# Node modules
+**/node_modules/
+
+# Build output
+.nuxt/
+dist/
+.nuxt-temp/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dotenv files
+.env
+.env.*.local
+
+# Editor & system files
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# lock files (optional: if you don’t want to commit lock files)
+# yarn.lock
+# package-lock.json
+# composer.lock
+
+# OS trash
+Thumbs.db
