@@ -52,7 +52,7 @@ container:
 	docker ps 
 
 runcli:
-	docker exec -it nuxt-app bash
+	docker exec -it new-mms-php-1 bash
 
 celarcache:
 	php bin/console cache:clear

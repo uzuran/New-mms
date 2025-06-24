@@ -1,16 +1,22 @@
-You said:
 <script setup>
 import { ref } from 'vue'
-
-const { data: categories, pending, error, refresh } = await useFetch('http://new-mms-nginx-1/api/categories', {
-  key: 'categories',
-  initialCache: false, // Disable initial cache to always fetch fresh data
-})
+import { useAsyncData } from '#app'
 
 const showForm = ref(false)
 const materialId = ref('')
 const name = ref('')
 const message = ref('')
+
+// Použij useAsyncData místo useFetch (lepší kontrola nad refresh)
+const {
+  data: categories,
+  pending,
+  error,
+  refresh,
+} = await useAsyncData('categories', () =>
+  $fetch('http://localhost:8080/api/categories'),
+  { server: false } // klientské načtení
+)
 
 // Odeslání nové kategorie
 const submit = async () => {
@@ -26,12 +32,32 @@ const submit = async () => {
     materialId.value = ''
     name.value = ''
     showForm.value = false
-    await refresh() // reload dat
+    await refresh() // znovunačti data
   } catch (err) {
     message.value = '❌ Chyba: ' + err.message
   }
 }
+
+// Odstrananění nové kategorie.
+
+const deleteCategory = async (id) => {
+  if (!confirm('Opravdu chceš tuto kategorii smazat?')) return
+  try {
+    await $fetch(`http://localhost:8080/api/categories/${id}`, {
+      method: 'DELETE',
+    })
+    message.value = '🗑️ Kategorie smazána!'
+    await refresh() // nebo await loadCategories()
+  } catch (err) {
+    message.value = '❌ Chyba při mazání: ' + err.message
+  }
+}
+
+
+
+
 </script>
+
 
 <template>
   <div class="p-6">
@@ -62,7 +88,10 @@ const submit = async () => {
 
     <!-- Tabulka -->
     <div v-if="pending">Loading...</div>
-    <div v-else-if="error">❌ Failed to load categories.</div>
+    <div v-else-if="error">
+      ❌ Failed to load categories:
+      <pre class="bg-red-100 text-red-800 p-2 mt-2">{{ error }}</pre>
+    </div>
     <div v-else>
       <table class="w-full table-auto border-collapse border border-gray-300">
         <thead>
@@ -70,6 +99,7 @@ const submit = async () => {
             <th class="border px-4 py-2">ID</th>
             <th class="border px-4 py-2">Material ID</th>
             <th class="border px-4 py-2">Name</th>
+            <th class="border px-4 py-2">Akce</th> <!-- Nový sloupec -->
           </tr>
         </thead>
         <tbody>
@@ -77,6 +107,14 @@ const submit = async () => {
             <td class="border px-4 py-2">{{ category.id }}</td>
             <td class="border px-4 py-2">{{ category.materialId }}</td>
             <td class="border px-4 py-2">{{ category.name }}</td>
+            <td class="border px-4 py-2 text-center">
+              <button
+                @click="deleteCategory(category.id)"
+                class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+              >
+                🗑️ Smazat
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
