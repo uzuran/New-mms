@@ -1,3 +1,3 @@
 <template>
-  <div>Materials page placeholder</div>
+  <div>Materials page placeholder!</div>
 </template>

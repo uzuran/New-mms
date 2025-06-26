@@ -10,6 +10,7 @@
         <NuxtLink to="/categories" class="hover:text-gray-300">Kategorie materialů</NuxtLink>
         <NuxtLink to="/materials" class="hover:text-gray-300">Materialy</NuxtLink>
         <NuxtLink to="/about" class="hover:text-gray-300">About</NuxtLink>
+        <NuxtLink to="/users" class="hover:text-gray-300">Správa uživatelů</NuxtLink>
       </div>
     </div>
   </nav>
